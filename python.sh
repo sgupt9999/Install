@@ -31,8 +31,3 @@ cd $PYTHONINSTALLDIR
 make altinstall
 
 
-
-cont="0"
-if [[ cont == "1" ]]
-then
-	pip3.6 install boto3
