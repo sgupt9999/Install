@@ -1,7 +1,5 @@
 #!/bin/bash
 # This script will install the atom editor on this machine
-# This gives a dependency error on RHEL which I havent been able to fix yet
-# Tested and works w/o a problem on Centos
 
 
 
@@ -21,15 +19,25 @@ else
 	echo "####################################################"
 fi
 
-INSTALLPACKAGES="wget git"
 
 echo
 echo "#####################"
 echo "Installing atom"
-yum install -y $INSTALLPACKAGES
-wget https://github.com/atom/atom/releases/download/v1.29.0/atom.x86_64.rpm
-yum install -y atom.x86_64.rpm
-rm -rf atom.x86_64.rpm
+
+rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
+
+rm -rf /etc/yum.repos.d/atom.repo > /dev/null 2>&1
+cat >> /etc/yum.repos.d/atom.repo << EOF
+[Atom]
+name=Atom Editor
+baseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch
+enabled=1
+gpgcheck=0
+repo_gpgcheck=1
+gpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey
+EOF
+
+yum install -y atom
 echo "Installation complete"
 echo "#####################"
 
