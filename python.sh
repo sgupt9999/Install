@@ -31,6 +31,5 @@ tar -xf $PYTHONFILENAME
 cd $PYTHONINSTALLDIR
 ./configure --enable-optimizations
 make altinstall ## This causes in to not replace the built in python execuatable
-pip3.6 install --upgrade pip
 
 
