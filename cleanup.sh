@@ -23,6 +23,7 @@ echo
 echo "#####################"
 echo "Cleaning up"
 
+sudo journalctl --vacuum-time=1s #This will clear all journald log files
 yum -y install yum-utils #Install yum-utils if not already installed
 find /var -name "*.log" \( \( -size +50M -mtime +7 \) -o -mtime +30 \) -exec truncate {} --size 0 \; #This will truncate any *.log files on the volime /var that are either older than 7 days and greater than 50M or older than 30 days
 yum clean all #Cleanup yum caches
